@@ -1,5 +1,4 @@
 #from tkinter import Widget
-from pydoc import doc
 from django.shortcuts import render
 from pierwsza_aplikacja.models import Topic, UserProfileInfo, Webpage, AccessRecord, UserProfileInfo
 from . import forms
@@ -132,6 +131,6 @@ def user_login(request):
 
     else:
         #Nothing has been provided for username or password.
-        return render(request, 'pierwsza_aplikacja_nazwa/login.html', {})
+        return render(request, 'pierwsza_aplikacja/login.html', {})
 
 
