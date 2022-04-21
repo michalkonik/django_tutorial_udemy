@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+  <head>
+    <!--  The head contains Meta-data -->
+    <!-- Use html+Tab to get the boilerplate  -->
+    <!-- Use cmd+/ to get the html comment line -->
+    <meta charset="utf-8">
+    <title> жопkа! </title>
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- The body contains the actual content -->
+    <div class="container">
+      <div class="jumbotron">
+        <h1>отстань от меня ALENAAAAAAAAAAAAAAAAAAAAAAAAAAa :D :D :D </h1>
+      </div>
+    </div>
+    <center>{{ insert_me|cut:'wartością' }}</center>
+    <center>{{ insert_me|upper }}</center>
+    <b></b>
+    <div class="container">
+      <div class="jumbotron">
+        <img src="{% static 'images/111111.jpg' %}" alt="Uh djdjskjhafwjk">
+      </div>
+    </div>
+
+    <div class="djangotwo">
+      {% if access_records %}
+        <table>
+          <thead>
+            <th>Site Name</th>
+            <th>Date Accessed</th>
+          </thead>
+
+        {% for acc in access_records %}
+        <tr>
+          <td>{{ acc.topic}}</td>
+          <td>{{ acc.date}}</td>
+
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+        <p> NO ACCESS records found </p>
+      {% endif %}
+    </div>
+
+    <h2> Go to /formpage to fill out the form ! </h2>
+
+
+  </body>
+</html>

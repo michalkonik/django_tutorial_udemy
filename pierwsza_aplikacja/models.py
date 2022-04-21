@@ -1,0 +1,40 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+
+class Topic(models.Model):
+    top_name = models.CharField(max_length=264)
+
+    def __str__(self):
+        return self.top_name
+
+class Webpage(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    name = models.CharField(max_length=264, unique=True)
+    url = models.URLField(unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class AccessRecord(models.Model):
+    topic = models.ForeignKey(Webpage, on_delete=models.CASCADE)
+    date = models.DateField()
+
+    def __str__(self):
+        return self.date
+
+
+class UserProfileInfo(models.Model):
+    #nie dziedziczyć usera w klasie, bo sugerowałoby to jakby było więcej niż jedna instancja tego samego usera
+    user = models.OneToOneField(User)
+
+    # additional classes
+    portfolio_site = models.URLField(blank=True)
+    profile_pic = models.ImageField(upload_to='profile_pics', blak=True)
+
+    def __str__(self) -> str:
+        return self.user.username
+
+
