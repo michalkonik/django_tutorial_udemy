@@ -1,6 +1,7 @@
 #from tkinter import Widget
 from django.shortcuts import render
-from pierwsza_aplikacja.models import Topic, UserProfileInfo, Webpage, AccessRecord, UserProfileInfo
+from pierwsza_aplikacja.models import Topic, UserProfileInfo, Webpage, \
+        AccessRecord, UserProfileInfo, School, Student
 from . import forms
 
 
@@ -9,15 +10,38 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+from django.views.generic import View, TemplateView, ListView, DetailView
 
 
-# Create your views here.
+class CBView(View):
+    def get(self, request):
+        #return HttpResponse("Class Base Views are fucking cool !")
+        webpages_list = AccessRecord.objects.order_by('date')
+        date_dict = {'access_records': webpages_list, 'insert_me':"Jestem wartością zmiennej 'access_records' fuck yeah !! "}
+        return render(request, 'pierwsza_aplikacja/index.html', context=date_dict)
 
-def index(request):
+
+
+# Belov 'function based view', which has been replaced with above Class Based View
+'''def index(request):
     webpages_list = AccessRecord.objects.order_by('date')
     date_dict = {'access_records': webpages_list, 'insert_me':"Jestem wartością zmiennej 'access_records' fuck yeah !! "}
 
-    return render(request, 'pierwsza_aplikacja/index.html', context=date_dict)
+    return render(request, 'pierwsza_aplikacja/index.html', context=date_dict)'''
+
+
+class OtherView(TemplateView):
+    template_name = "pierwsza_aplikacja/other.html"
+
+    def get_context_data(self, **kwargs: any):
+        context = super().get_context_data(**kwargs)
+        context['inject_me'] = 'BASIC INJECTION YEAH! :o'
+        return context
+
+
+#replaced with the above class ^^
+'''def other(request):
+    return render(request, 'pierwsza_aplikacja/other.html')'''
 
 
 @login_required
@@ -57,9 +81,6 @@ def form_name_view(request):
 
     return render(request, 'pierwsza_aplikacja/form_page.html', context=form)
 
-
-def other(request):
-    return render(request, 'pierwsza_aplikacja/other.html')
 
 def relative_url_template(request):
     return render(request, 'pierwsza_aplikacja/relative_url_template.html')
@@ -134,3 +155,13 @@ def user_login(request):
         return render(request, 'pierwsza_aplikacja/login.html', {})
 
 
+class SchoolList(ListView):
+    model = School()
+
+
+class SchoolDetailView(DetailView):
+    model = School
+    template_name = 'pierwsza_aplikacja/school_detail.html'
+
+
+    

@@ -38,3 +38,19 @@ class UserProfileInfo(models.Model):
         return self.user.username
 
 
+class School(models.Model):
+    name = models.CharField(max_length=256)
+    principal = models.CharField(max_length=256)
+    location = models.CharField(max_length=256)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Student(models.Model):
+    name = models.CharField(max_length=256)
+    age = models.PositiveIntegerField()
+    school = models.ForeignKey(School, related_name='students', on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.name
